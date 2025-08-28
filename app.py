@@ -14,7 +14,7 @@ income = st.number_input("Applicant Income:", min_value=0, step=1000, value=5500
 age = st.number_input("Age:", min_value=18, max_value=100, value=35)
 credit_score = st.number_input("Credit Score:", min_value=300, max_value=850, value=720)
 loan_amount = st.number_input("Loan Amount:", min_value=1000, step=1000, value=20000)
-emp_exp = st.number_input("Years of Experience:", min_value=0, max_value=50, value=5)
+
 loan_int_rate = st.number_input("Loan Interest Rate (%):", min_value=0.0, max_value=50.0, value=10.0)
 cred_hist_length = st.number_input("Credit History Length (years):", min_value=0, max_value=50, value=10)
 
@@ -23,7 +23,7 @@ education = st.selectbox("Education:", ["Graduate", "Not Graduate"])
 home_ownership = st.selectbox("Home Ownership:", ["Own", "Rent", "Mortgage"])
 loan_intent = st.selectbox("Loan Intent:", ["Personal", "Debt Consolidation", "Education", "Home Improvement"])
 previous_defaults = st.selectbox("Previous Loan Defaults:", ["No", "Yes"])
-
+emp_exp = st.number_input("Years of Experience:", min_value=0, max_value=50, value=5)
 # Mapping categorical inputs
 gender_map = {"Male": 0, "Female": 1}
 education_map = {"Graduate": 0, "Not Graduate": 1}
