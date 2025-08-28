@@ -9,21 +9,27 @@ with open('rf_loan_model.sav', 'rb') as f:
 st.title("Loan Approval Prediction App")
 st.write("Enter applicant details below:")
 
+Index(['person_age', 'person_gender', 'person_education', 'person_income',
+       'person_emp_exp', 'person_home_ownership', 'loan_amnt', 'loan_intent',
+       'loan_int_rate', 'loan_percent_income', 'cb_person_cred_hist_length',
+       'credit_score', 'previous_loan_defaults_on_file'],
+      dtype='object')
 # Streamlit inputs
-income = st.number_input("Applicant Income:", min_value=0, step=1000, value=55000)
+
 age = st.number_input("Age:", min_value=18, max_value=100, value=35)
-credit_score = st.number_input("Credit Score:", min_value=300, max_value=850, value=720)
-loan_amount = st.number_input("Loan Amount:", min_value=1000, step=1000, value=20000)
-
-loan_int_rate = st.number_input("Loan Interest Rate (%):", min_value=0.0, max_value=50.0, value=10.0)
-cred_hist_length = st.number_input("Credit History Length (years):", min_value=0, max_value=50, value=10)
-
 gender = st.selectbox("Gender:", ["Male", "Female"])
 education = st.selectbox("Education:", ["Graduate", "Not Graduate"])
-home_ownership = st.selectbox("Home Ownership:", ["Own", "Rent", "Mortgage"])
-loan_intent = st.selectbox("Loan Intent:", ["Personal", "Debt Consolidation", "Education", "Home Improvement"])
-previous_defaults = st.selectbox("Previous Loan Defaults:", ["No", "Yes"])
+income = st.number_input("Applicant Income:", min_value=0, step=1000, value=55000)
 emp_exp = st.number_input("Years of Experience:", min_value=0, max_value=50, value=5)
+home_ownership = st.selectbox("Home Ownership:", ["Own", "Rent", "Mortgage"])
+loan_amount = st.number_input("Loan Amount:", min_value=1000, step=1000, value=20000)
+loan_intent = st.selectbox("Loan Intent:", ["Personal", "Debt Consolidation", "Education", "Home Improvement"])
+loan_int_rate = st.number_input("Loan Interest Rate (%):", min_value=0.0, max_value=50.0, value=10.0)
+loan_percent_income: (loan_amount/income) * 100 if income > 0 else 0
+cred_hist_length = st.number_input("Credit History Length (years):", min_value=0, max_value=50, value=10)
+credit_score = st.number_input("Credit Score:", min_value=300, max_value=850, value=720)
+previous_defaults = st.selectbox("Previous Loan Defaults:", ["No", "Yes"])
+
 # Mapping categorical inputs
 gender_map = {"Male": 0, "Female": 1}
 education_map = {"Graduate": 0, "Not Graduate": 1}
@@ -37,6 +43,7 @@ features = pd.DataFrame([{
     'person_gender': gender_map[gender],
     'person_education': education_map[education],
     'person_income': income,
+    'person_emp_exp': emp_exp,
     'person_home_ownership': home_map[home_ownership],
     'loan_amnt': loan_amount,
     'loan_intent': loan_intent_map[loan_intent],
@@ -45,7 +52,7 @@ features = pd.DataFrame([{
     'cb_person_cred_hist_length': cred_hist_length,
     'credit_score': credit_score,
     'previous_loan_defaults_on_file': defaults_map[previous_defaults],
-    'person_emp_exp': emp_exp,
+    
 }])
 print("Features shape:", features.shape)
 
