@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-model, scaler = pickle.load(open('loan_model.sav', 'rb'))
+model, scaler = pickle.load(open('trained_model.sav', 'rb'))
 
 st.title("Loan Approval Prediction App")
 
