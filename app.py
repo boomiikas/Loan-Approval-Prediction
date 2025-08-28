@@ -1,16 +1,15 @@
 import streamlit as st
 import pickle
-import numpy as np
 import pandas as pd
 
-
-with open('trained_model.sav', 'rb') as f:
+# Load trained model and scaler
+with open('rf_loan_model.sav', 'rb') as f:
     loaded_model, loaded_scaler = pickle.load(f)
 
 st.title("Loan Approval Prediction App")
 st.write("Enter applicant details below:")
 
-
+# Streamlit inputs
 income = st.number_input("Applicant Income:", min_value=0, step=1000, value=55000)
 age = st.number_input("Age:", min_value=18, max_value=100, value=35)
 credit_score = st.number_input("Credit Score:", min_value=300, max_value=850, value=720)
@@ -19,20 +18,20 @@ emp_exp = st.number_input("Years of Experience:", min_value=0, max_value=50, val
 loan_int_rate = st.number_input("Loan Interest Rate (%):", min_value=0.0, max_value=50.0, value=10.0)
 cred_hist_length = st.number_input("Credit History Length (years):", min_value=0, max_value=50, value=10)
 
-
 gender = st.selectbox("Gender:", ["Male", "Female"])
 education = st.selectbox("Education:", ["Graduate", "Not Graduate"])
 home_ownership = st.selectbox("Home Ownership:", ["Own", "Rent", "Mortgage"])
 loan_intent = st.selectbox("Loan Intent:", ["Personal", "Debt Consolidation", "Education", "Home Improvement"])
 previous_defaults = st.selectbox("Previous Loan Defaults:", ["No", "Yes"])
 
+# Mapping categorical inputs
+gender_map = {"Male": 0, "Female": 1}
+education_map = {"Graduate": 0, "Not Graduate": 1}
+home_map = {"Own": 0, "Rent": 1, "Mortgage": 2}
+loan_intent_map = {"Personal": 0, "Debt Consolidation": 1, "Education": 2, "Home Improvement": 3}
+defaults_map = {"No": 0, "Yes": 1}
 
-gender_map = {"Male":0, "Female":1}
-education_map = {"Graduate":0, "Not Graduate":1}
-home_map = {"Own":0, "Rent":1, "Mortgage":2}
-loan_intent_map = {"Personal":0, "Debt Consolidation":1, "Education":2, "Home Improvement":3}
-defaults_map = {"No":0, "Yes":1}
-
+# Create DataFrame for prediction
 features = pd.DataFrame([{
     'person_income': income,
     'person_age': age,
@@ -49,9 +48,13 @@ features = pd.DataFrame([{
     'loan_percent_income': (loan_amount/income)*100
 }])
 
+# Apply scaler only to numeric features used during training
+numeric_cols = ['person_income','person_age','credit_score','loan_amnt','person_emp_exp',
+                'loan_int_rate','cb_person_cred_hist_length','loan_percent_income']
+features_scaled = features.copy()
+features_scaled[numeric_cols] = loaded_scaler.transform(features[numeric_cols])
 
-features_scaled = loaded_scaler.transform(features)
-
+# Predict when button is clicked
 if st.button("Predict Loan Status"):
     probability = loaded_model.predict_proba(features_scaled)
     st.subheader("Prediction Result")
