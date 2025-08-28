@@ -33,25 +33,26 @@ defaults_map = {"No": 0, "Yes": 1}
 
 # Create DataFrame for prediction
 features = pd.DataFrame([{
-    'person_income': income,
     'person_age': age,
-    'credit_score': credit_score,
-    'loan_amnt': loan_amount,
-    'person_emp_exp': emp_exp,
-    'loan_int_rate': loan_int_rate,
-    'cb_person_cred_hist_length': cred_hist_length,
     'person_gender': gender_map[gender],
     'person_education': education_map[education],
+    'person_income': income,
+    'person_emp_exp': emp_exp,
     'person_home_ownership': home_map[home_ownership],
+    'loan_amnt': loan_amount,
     'loan_intent': loan_intent_map[loan_intent],
-    'previous_loan_defaults_on_file': defaults_map[previous_defaults],
-    'loan_percent_income': (loan_amount/income)*100
+    'loan_int_rate': loan_int_rate,
+    'loan_percent_income': (loan_amount/income)*100,
+    'cb_person_cred_hist_length': cred_hist_length,
+    'credit_score': credit_score,
+    'previous_loan_defaults_on_file': defaults_map[previous_defaults]
 }])
+print("Features shape:", features.shape)
 
 
 # Predict when button is clicked
 if st.button("Predict Loan Status"):
-    probability = loaded_model.predict_proba([features])  
+    probability = loaded_model.predict_proba(features)  
 
     st.subheader("Prediction Result")
     st.write(f"Probability of Approval: **{probability[0][1]*100:.2f}%**")
