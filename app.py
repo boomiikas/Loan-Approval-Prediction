@@ -48,11 +48,6 @@ features = pd.DataFrame([{
     'loan_percent_income': (loan_amount/income)*100
 }])
 
-# Apply scaler only to numeric features used during training
-numeric_cols = ['person_income','person_age','credit_score','loan_amnt','person_emp_exp',
-                'loan_int_rate','cb_person_cred_hist_length','loan_percent_income']
-features_scaled = features.copy()
-features_scaled[numeric_cols] = loaded_scaler.transform(features[numeric_cols])
 
 # Predict when button is clicked
 if st.button("Predict Loan Status"):
