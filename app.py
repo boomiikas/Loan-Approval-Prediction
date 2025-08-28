@@ -51,7 +51,8 @@ features = pd.DataFrame([{
 
 # Predict when button is clicked
 if st.button("Predict Loan Status"):
-    probability = loaded_model.predict_proba(features_scaled)
+    probability = loaded_model.predict_proba([features])  # wrap in list/array
+
     st.subheader("Prediction Result")
     st.write(f"Probability of Approval: **{probability[0][1]*100:.2f}%**")
     st.write(f"Probability of Rejection: **{probability[0][0]*100:.2f}%**")
