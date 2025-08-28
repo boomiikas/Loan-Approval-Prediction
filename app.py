@@ -9,11 +9,7 @@ with open('rf_loan_model.sav', 'rb') as f:
 st.title("Loan Approval Prediction App")
 st.write("Enter applicant details below:")
 
-Index(['person_age', 'person_gender', 'person_education', 'person_income',
-       'person_emp_exp', 'person_home_ownership', 'loan_amnt', 'loan_intent',
-       'loan_int_rate', 'loan_percent_income', 'cb_person_cred_hist_length',
-       'credit_score', 'previous_loan_defaults_on_file'],
-      dtype='object')
+
 # Streamlit inputs
 
 age = st.number_input("Age:", min_value=18, max_value=100, value=35)
