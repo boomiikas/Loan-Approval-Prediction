@@ -4,7 +4,7 @@ import pandas as pd
 
 # Load trained model and scaler
 with open('rf_loan_model.sav', 'rb') as f:
-    loaded_model, loaded_scaler = pickle.load(f)
+    loaded_model = pickle.load(f)
 
 st.title("Loan Approval Prediction App")
 st.write("Enter applicant details below:")
