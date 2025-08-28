@@ -3,7 +3,7 @@
 This project predicts whether a bank should **approve or reject** a loan application using applicant data such as **income, age, credit score, and loan amount**.  
 A **Random Forest Classifier** is trained on historical loan data to make predictions.  
 
-🔗 **Live Demo**: [Loan Approval Prediction App](https://loan-approval-prediction-b5.streamlit.app/)  
+🔗 **Live Demo**: [Loan Approval Prediction App](https://loan-approval-prediction-b5.streamlit.app/)
 
 ---
 
@@ -99,7 +99,8 @@ For an applicant with:
 ---
 
 ## 📸 Screenshots  
-<img width="989" height="756" alt="image" src="https://github.com/user-attachments/assets/73bbb323-90eb-43ea-b1c1-e02ee8963aa4" />
+<img width="522" height="839" alt="image" src="https://github.com/user-attachments/assets/3ccbbf89-3e16-4897-b309-255b96e6f00b" />
+
 
 ---
 
