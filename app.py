@@ -37,7 +37,6 @@ features = pd.DataFrame([{
     'person_gender': gender_map[gender],
     'person_education': education_map[education],
     'person_income': income,
-    'person_emp_exp': emp_exp,
     'person_home_ownership': home_map[home_ownership],
     'loan_amnt': loan_amount,
     'loan_intent': loan_intent_map[loan_intent],
@@ -45,7 +44,8 @@ features = pd.DataFrame([{
     'loan_percent_income': (loan_amount/income)*100,
     'cb_person_cred_hist_length': cred_hist_length,
     'credit_score': credit_score,
-    'previous_loan_defaults_on_file': defaults_map[previous_defaults]
+    'previous_loan_defaults_on_file': defaults_map[previous_defaults],
+    'person_emp_exp': emp_exp,
 }])
 print("Features shape:", features.shape)
 
