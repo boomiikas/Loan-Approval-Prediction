@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-model, scaler = pickle.load(open('trained_model.sav', 'rb'))
+model = pickle.load(open('trained_model.sav', 'rb'))
 
 st.title("Loan Approval Prediction App")
 
@@ -15,12 +15,8 @@ loan_amount = st.number_input("Loan Amount:", min_value=1000, step=1000, value=2
 
 features = np.array([[income, age, credit_score, loan_amount]])
 
-
-features_scaled = scaler.transform(features)
-
-
 if st.button("Predict Loan Status"):
-    probability = model.predict_proba(features_scaled)
+    probability = model.predict_proba(features)
 
     st.subheader("Prediction Result")
     st.write(f"Probability of Approval: **{probability[0][1]*100:.2f}%**")
